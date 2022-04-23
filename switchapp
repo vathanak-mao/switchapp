@@ -1,7 +1,8 @@
 #!/bin/bash
 
 desktopid=$(xdotool get_desktop)
-lineseparated_ids=$(wmctrl -l | cut -d' ' -f1,3 | grep $desktopid'$' | grep -o '0x[0-9a-f]*')
+exp=$desktopid'$'
+lineseparated_ids=$(wmctrl -l | cut -d' ' -f1,3 | grep ${exp} | grep -o '0x[0-9a-f]*')
 echo "lineseparated_id=$lineseparated_ids"
 
 spaceseparated_ids=$(echo $lineseparated_ids | cut -d$'\n' -f1)
@@ -10,18 +11,21 @@ echo "spaceseparated_ids=$spaceseparated_ids"
 IFS=' ' read -r -a ids <<< "$spaceseparated_ids"
 echo "ids=$ids"
 
-#active_win=$( wmctrl -lp | grep $(xprop -root | grep _NET_ACTIVE_WINDOW | head -1 | awk '{print $5}' | sed 's/,//' | sed 's/^0x/0x0/') )
-#active_id=$(echo $active_win | cut -d' ' -f1)
+length=${#ids[@]}
+echo "length=$length"
+
+if [[ $length -eq 0 ]]; then return ; fi # if no active windows, stop executing this script
 
 active_id=$(printf 0x%x $(xdotool getactivewindow)) # convert from dec to hex
 echo "active_id=$active_id"
+if [[ $active_id -eq 0x0 ]]; then 
+	active_id=${ids[0]} ; 
+	echo "> No active window (may be all are minimized) so defaulting to the first window (winid=$active_id) among the opening ones."
+fi
 
-reverse=false
+declare reverse=false
 if [[ $1 = "reverse" ]]; then reverse=true; fi
 echo "reverse=$reverse"
-
-length=${#ids[@]}
-echo "length=$length"
 
 for ((i=0; i<length; i++))
 do
