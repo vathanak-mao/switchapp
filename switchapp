@@ -15,11 +15,11 @@ echo "length=$length"
 active_id=$(printf 0x%x $(xdotool getactivewindow)) # convert from dec to hex
 echo "active_id=$active_id"
 if [[ $active_id -eq 0x0 ]]; then 
-	active_id=${ids[0]} ; 
+	active_id=${ids[0]}
 	echo "> No active window (may be all are minimized) so defaulting to the first window (winid=$active_id) among the opening ones."
 fi
 
-declare reverse=false
+reverse=false
 if [[ $1 = "reverse" ]]; then reverse=true; fi
 echo "reverse=$reverse"
 
@@ -36,21 +36,18 @@ do
 		if [[ $reverse = "true" ]]; then
 			echo "aaa"
 			
-			if [[ $((i-1)) -lt 0 ]]; then
+			next_idx=$((i-1))
+			if [[ next_idx -lt 0 ]]; then
 				echo aaa1
 				next_idx=$((length-1))
-			else
-				echo aaa2
-				next_idx=$((i-1))
 			fi
 		else
 			echo bbb
-			if [[ $((i+1)) -eq $length ]]; then
+			
+			next_idx=$((i+1))
+			if [[ next_idx -eq $length ]]; then
 				echo bbb1
 				next_idx=0
-			else
-				echo bbb2
-				next_idx=$((i+1))
 			fi
 		fi
 		
