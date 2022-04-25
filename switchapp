@@ -2,6 +2,7 @@
 
 desktopid=$(xdotool get_desktop)
 exp=$desktopid'$'
+
 lineseparated_ids=$(wmctrl -l | sed -n "s/\(0x[0-9a-zA-Z]\+\)\s\+${desktopid}.*/\1/p")
 echo "lineseparated_id=$lineseparated_ids"
 
@@ -10,8 +11,6 @@ echo "ids=${ids[@]}"
 
 length=${#ids[@]}
 echo "length=$length"
-
-#if [[ $length -eq 0 ]]; then exit 0; fi # if no active windows, stop executing this script
 
 active_id=$(printf 0x%x $(xdotool getactivewindow)) # convert from dec to hex
 echo "active_id=$active_id"
