@@ -5,17 +5,13 @@ exp=$desktopid'$'
 lineseparated_ids=$(wmctrl -l | grep -o "0x[0-9a-zA-Z]\+\s\+${desktopid}" | cut -d' ' -f1)
 echo "lineseparated_id=$lineseparated_ids"
 
-spaceseparated_ids=$(echo $lineseparated_ids)
-echo "spaceseparated_ids=$spaceseparated_ids"
-
-IFS=' ' 
-read -r -a ids <<< "$spaceseparated_ids"
-echo "ids=$ids"
+IFS=$'\n' read -d '' -r -a ids <<< "$lineseparated_ids"
+echo "ids=${ids[@]}"
 
 length=${#ids[@]}
 echo "length=$length"
 
-if [[ $length -eq 0 ]]; then exit 0; fi # if no active windows, stop executing this script
+#if [[ $length -eq 0 ]]; then exit 0; fi # if no active windows, stop executing this script
 
 active_id=$(printf 0x%x $(xdotool getactivewindow)) # convert from dec to hex
 echo "active_id=$active_id"
