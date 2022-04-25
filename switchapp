@@ -2,13 +2,14 @@
 
 desktopid=$(xdotool get_desktop)
 exp=$desktopid'$'
-lineseparated_ids=$(wmctrl -l | cut -d' ' -f1,3 | grep ${exp} | grep -o '0x[0-9a-f]*')
+lineseparated_ids=$(wmctrl -l | cut -d' ' -f1,3 | grep ${exp} | cut -d' ' -f1)
 echo "lineseparated_id=$lineseparated_ids"
 
-spaceseparated_ids=$(echo $lineseparated_ids | cut -d$'\n' -f1)
+spaceseparated_ids=$(echo $lineseparated_ids)
 echo "spaceseparated_ids=$spaceseparated_ids"
 
-IFS=' ' read -r -a ids <<< "$spaceseparated_ids"
+IFS=' ' 
+read -r -a ids <<< "$spaceseparated_ids"
 echo "ids=$ids"
 
 length=${#ids[@]}
@@ -30,7 +31,7 @@ echo "reverse=$reverse"
 for ((i=0; i<length; i++))
 do
 	echo xxx
-	echo "active_id=$active_id, id[i]=${ids[$i]}"
+	echo "active_id=$active_id, id[$i]=${ids[$i]}"
 	
 	if [[ $active_id -eq ${ids[$i]} ]]; then
 		echo yyy
