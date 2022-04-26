@@ -4,27 +4,27 @@ desktopid=$(xdotool get_desktop)
 exp=$desktopid'$'
 
 lineseparated_ids=$(wmctrl -l | sed -n "s/\(0x[0-9a-zA-Z]\+\)\s\+${desktopid}.*/\1/p")
-echo "lineseparated_id=$lineseparated_ids"
+#echo "lineseparated_id=$lineseparated_ids"
 
 IFS=$'\n' read -d '' -r -a ids <<< "$lineseparated_ids"
-echo "ids=${ids[@]}"
+#echo "ids=${ids[@]}"
 
 length=${#ids[@]}
-echo "length=$length"
+#echo "length=$length"
 
 active_id=$(printf 0x%x $(xdotool getactivewindow)) # convert from dec to hex
 if [[ $active_id -eq 0x0 ]]; then 
 	active_id=${ids[0]}
-	echo "> No active window (may be all are minimized) so defaulting to the first window (winid=$active_id) among the opening ones."
+	#echo "> No active window (may be all are minimized) so defaulting to the first window (winid=$active_id) among the opening ones."
 fi
 
 reverse=false
 if [[ $1 = "reverse" ]]; then reverse=true; fi
-echo "reverse=$reverse"
+#echo "reverse=$reverse"
 
 for ((i=0; i<length; i++))
 do
-	echo "active_id=$active_id, id[$i]=${ids[$i]}"
+	#echo "active_id=$active_id, id[$i]=${ids[$i]}"
 	
 	if [[ $active_id -eq ${ids[$i]} ]]; then
 		next_idx=-1
@@ -38,7 +38,7 @@ do
 		next_id=${ids[$next_idx]}
 		dec_nextid=$(printf %i $next_id)
 		
-		echo "> Activate next window $next_id (dec=$dec_nextid) [i=$i, next_idx=$next_idx]"
+		#echo "> Activate next window $next_id (dec=$dec_nextid) [i=$i, next_idx=$next_idx]"
 		
 		xdotool windowactivate $dec_nextid
 		
