@@ -30,11 +30,9 @@ do
 		next_idx=-1
 		
 		if [[ $reverse = "true" ]]; then
-			next_idx=$((i-1))
-			if [[ next_idx -lt 0 ]]; then next_idx=$((length-1)); fi
+			[[ $((i-1)) -lt 0 ]] && next_idx=$((length-1)) || next_idx=$((i-1))
 		else
-			next_idx=$((i+1))
-			if [[ next_idx -eq $length ]]; then next_idx=0; fi
+			[[ $((i+1)) -eq length ]] && next_idx=0 || next_idx=$((i+1))
 		fi
 		
 		next_id=${ids[$next_idx]}
