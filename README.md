@@ -1,5 +1,7 @@
 # switchapp
-This script file is to be used with <b>Touchegg</b> to allow switching between opening application windows in the current desktop using a swipe guesture.
+This script file is to be used with <b>Touchegg</b> to allow switching between opening application windows in the current desktop using a swipe guesture.<br/>
+
+<img src="https://github.com/vathanak-mao/switchapp/blob/main/.github/switchapp.gif"/>
 
 ## How-to
 Here is how to configure 4-finger swipe down for switching to another app window:
