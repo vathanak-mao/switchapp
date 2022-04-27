@@ -1,10 +1,8 @@
 #!/bin/bash
 
 desktopid=$(xdotool get_desktop)
-exp=$desktopid'$'
-
 lineseparated_ids=$(wmctrl -l | sed -n "s/\(0x[0-9a-zA-Z]\+\)\s\+${desktopid}.*/\1/p")
-#echo "lineseparated_id=$lineseparated_ids"
+#echo "lineseparated_ids=$lineseparated_ids"
 
 IFS=$'\n' read -d '' -r -a ids <<< "$lineseparated_ids"
 #echo "ids=${ids[@]}"
