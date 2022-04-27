@@ -22,7 +22,7 @@ sudo apt-get install xdotool wmctrl -y`
     &lt;/action&gt;
 &lt;/gesture&gt;
 </pre>
-4. reboot or press Alt+F2 then type 'r' without quotes
+5. Press Alt+F2 then type 'r' without quotes to restart GNOME Shell; if it doesn't work, reboot.
 
 ## Options
 ### reverse 
