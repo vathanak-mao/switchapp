@@ -5,7 +5,7 @@ This script file is to be used with <b>Touchegg</b> to allow switching between o
 
 ## How-to
 Here is how to configure 4-finger swipe down for switching to another app window:
-1. Install touchegg and make sure it's up and running (more details can be found [here](https://github.com/JoseExposito/touchegg))
+1. Install Touchegg and make sure it's up and running (more details can be found [here](https://github.com/JoseExposito/touchegg))
 2. Download and copy the `switchapp` script to `/usr/bin`
 3. Open this file `~/.config/touchegg/touchegg.conf` and add the following lines inside the `<application>` tag:
 <pre>
